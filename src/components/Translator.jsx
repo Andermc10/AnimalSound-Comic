@@ -20,8 +20,13 @@ export default function AnimalTranslator({ audioManager, isActive }) {
   const audioRef = useRef(null);
   const audioContext = useRef(null);
   const analyser = useRef(null);
+  const getAssetUrl = (path) => {
+  const base = import.meta.env.BASE_URL;
+  return base + path.replace(/^\//, '');
+};
 
   // Base de datos con audios embebidos (data URLs) para que funcionen siempre
+// Sección del animalData con las rutas corregidas
 const animalData = [
   {
     id: "whale",
@@ -29,7 +34,7 @@ const animalData = [
     scientific: "Megaptera novaeangliae",
     icon: "🐋",
     color: "from-blue-600 via-cyan-600 to-teal-600",
-    sound: "/sounds/creepy-whale-song-323612.mp3",
+    sound: getAssetUrl("sounds/creepy-whale-song-323612.mp3"),
     characteristics: {
       frequency: "10-40 Hz",
       range: "Hasta 160 km",
@@ -38,10 +43,8 @@ const animalData = [
     },
     translation: {
       original: "OooOOOooo---UUUuuu---EEEeee (Canto de Migración)",
-      human:
-        "🌊 MENSAJE DECODIFICADO: 'Grupo familiar moviéndose hacia aguas cálidas. Ruta: 45° noreste. Profundidad segura confirmada. Sigueme, hermanos del océano.'",
-      analysis:
-        "Patrón de baja frecuencia detectado. Duración: 18.7s. Estructura compleja con 5 frases distintas. Modulación descendente indica dirección.",
+      human: "🌊 MENSAJE DECODIFICADO: 'Grupo familiar moviéndose hacia aguas cálidas. Ruta: 45° noreste. Profundidad segura confirmada. Sigueme, hermanos del océano.'",
+      analysis: "Patrón de baja frecuencia detectado. Duración: 18.7s. Estructura compleja con 5 frases distintas. Modulación descendente indica dirección.",
       emotion: "Coordinación grupal y liderazgo",
       context: "Comunicación migratoria de larga distancia",
       confidence: 94,
@@ -58,7 +61,7 @@ const animalData = [
     scientific: "Psittacus erithacus",
     icon: "🦜",
     color: "from-green-600 via-emerald-600 to-lime-600",
-    sound: "/sounds/bird-chittering-sfx-364487.mp3",
+    sound: getAssetUrl("sounds/bird-chittering-sfx-364487.mp3"),
     characteristics: {
       frequency: "2-8 kHz",
       complexity: "Alta - imitación vocal",
@@ -67,10 +70,8 @@ const animalData = [
     },
     translation: {
       original: "Kraa-kraa-TIK-tik-KRAA! HELLO-kraa-PELIGRO! (Alerta Territorial)",
-      human:
-        "🚨 ALERTA DECODIFICADA: '¡Atención manada! Intruso humano detectado sector sureste. Nivel de amenaza: ALTO. Preparar formación defensiva.'",
-      analysis:
-        "Frecuencia aguda: 6.2kHz. Patrón repetitivo cada 2.3s. Análisis de estrés vocal: 87% excitación. Imitación humana detectada.",
+      human: "🚨 ALERTA DECODIFICADA: '¡Atención manada! Intruso humano detectado sector sureste. Nivel de amenaza: ALTO. Preparar formación defensiva.'",
+      analysis: "Frecuencia aguda: 6.2kHz. Patrón repetitivo cada 2.3s. Análisis de estrés vocal: 87% excitación. Imitación humana detectada.",
       emotion: "Alerta territorial y protección",
       context: "Sistema de alarma territorial con componentes aprendidos",
       confidence: 91,
@@ -87,7 +88,7 @@ const animalData = [
     scientific: "Apis mellifera",
     icon: "🐝",
     color: "from-yellow-600 via-amber-600 to-orange-600",
-    sound: "/sounds/bee-landing-on-flower-374609.mp3",
+    sound: getAssetUrl("sounds/bee-landing-on-flower-374609.mp3"),
     characteristics: {
       dance: "Lenguaje de baile",
       precision: "±3° angular",
@@ -96,10 +97,8 @@ const animalData = [
     },
     translation: {
       original: "Bzzz-ZigZag-Circle-Bzzz (Danza de Información)",
-      human:
-        "🍯 DANZA DECODIFICADA: '¡Increíble descubrimiento! Fuente de néctar premium: girasoles gigantes. Dirección: 45° noreste, distancia: 2.3km. ¡Calidad 10/10!'",
-      analysis:
-        "Duración danza: 12.4s. Ángulo preciso: 45.2°. Velocidad vibratoria: 280Hz. Círculos indican calidad excepcional.",
+      human: "🍯 DANZA DECODIFICADA: '¡Increíble descubrimiento! Fuente de néctar premium: girasoles gigantes. Dirección: 45° noreste, distancia: 2.3km. ¡Calidad 10/10!'",
+      analysis: "Duración danza: 12.4s. Ángulo preciso: 45.2°. Velocidad vibratoria: 280Hz. Círculos indican calidad excepcional.",
       emotion: "Euforia y entusiasmo extremo",
       context: "Comunicación de recursos mediante danza waggle",
       confidence: 98,
@@ -116,7 +115,7 @@ const animalData = [
     scientific: "Tursiops truncatus",
     icon: "🐬",
     color: "from-purple-600 via-blue-600 to-indigo-600",
-    sound: "/sounds/dolphin.mp3",
+    sound: getAssetUrl("sounds/dolphin.mp3"),
     characteristics: {
       signature: "Silbidos únicos",
       social: "Nombres individuales",
@@ -125,13 +124,10 @@ const animalData = [
     },
     translation: {
       original: "Click-Whistle-Click-Trill (Comunicación Social + Ecolocación)",
-      human:
-        "🐬 CONVERSACIÓN SOCIAL: 'Hola Luna, soy Splash. Banco de sardinas detectado a 200m, profundidad 15m. ¿Vienes a cazar conmigo, amiga?'",
-      analysis:
-        "Firma vocal única: ID-4491 (Splash). Uso de nombres confirmado. Ecolocación activa. Invitación cooperativa detectada.",
+      human: "🐬 CONVERSACIÓN SOCIAL: 'Hola Luna, soy Splash. Banco de sardinas detectado a 200m, profundidad 15m. ¿Vienes a cazar conmigo, amiga?'",
+      analysis: "Firma vocal única: ID-4491 (Splash). Uso de nombres confirmado. Ecolocación activa. Invitación cooperativa detectada.",
       emotion: "Amistad y cooperación",
-      context:
-        "Comunicación social con identificación individual y coordinación de caza",
+      context: "Comunicación social con identificación individual y coordinación de caza",
       confidence: 96,
       phrases: [
         { time: "0:01", meaning: "Saludo e identificación" },
@@ -146,7 +142,7 @@ const animalData = [
     scientific: "Canis lupus",
     icon: "🐺",
     color: "from-gray-600 via-slate-600 to-zinc-600",
-    sound: "/sounds/spooky-wolf-howl-410547.mp3",
+    sound: getAssetUrl("sounds/spooky-wolf-howl-410547.mp3"),
     characteristics: {
       range: "Hasta 6.4 km",
       pack: "Comunicación grupal",
@@ -155,10 +151,8 @@ const animalData = [
     },
     translation: {
       original: "AwoooOOOoooo---Howl-Growl (Llamada Alfa)",
-      human:
-        "🌙 LLAMADA ALFA: 'Manada, es Alpha. Luna llena, hora de cazar. Alces detectados valle norte. Beta y Gamma, flanqueen por el oeste. ¡Por la supervivencia!'",
-      analysis:
-        "Aullido alfa detectado. Frecuencia dominante: 422Hz. Modulación ascendente indica liderazgo. Respuesta de manada esperada.",
+      human: "🌙 LLAMADA ALFA: 'Manada, es Alpha. Luna llena, hora de cazar. Alces detectados valle norte. Beta y Gamma, flanqueen por el oeste. ¡Por la supervivencia!'",
+      analysis: "Aullido alfa detectado. Frecuencia dominante: 422Hz. Modulación ascendente indica liderazgo. Respuesta de manada esperada.",
       emotion: "Autoridad y estrategia",
       context: "Coordinación de caza nocturna con jerarquía de manada",
       confidence: 93,
@@ -175,7 +169,7 @@ const animalData = [
     scientific: "Loxodonta africana",
     icon: "🐘",
     color: "from-gray-700 via-stone-600 to-neutral-600",
-    sound: "/sounds/elephant-trumpets-growls-6047.mp3",
+    sound: getAssetUrl("sounds/elephant-trumpets-growls-6047.mp3"),
     characteristics: {
       infrasound: "1-20 Hz",
       range: "Hasta 10 km",
@@ -184,13 +178,10 @@ const animalData = [
     },
     translation: {
       original: "RUMMMMBLE---Trumpet---RUMBLE (Infrasonido + Trompeteo)",
-      human:
-        "🐘 MENSAJE MATRIARCAL: 'Familia, soy Grandmother. Sequía se acerca, recuerdo este patrón de mi juventud. Debemos migrar al río sagrado, 3 días de marcha. Protejan a las crías.'",
-      analysis:
-        "Infrasonido de 12Hz detectado. Combinación matriarcal + alerta. Memoria generacional activada. Urgencia moderada-alta.",
+      human: "🐘 MENSAJE MATRIARCAL: 'Familia, soy Grandmother. Sequía se acerca, recuerdo este patrón de mi juventud. Debemos migrar al río sagrado, 3 días de marcha. Protejan a las crías.'",
+      analysis: "Infrasonido de 12Hz detectado. Combinación matriarcal + alerta. Memoria generacional activada. Urgencia moderada-alta.",
       emotion: "Sabiduría ancestral y protección",
-      context:
-        "Liderazgo matriarcal basado en experiencia y memoria generacional",
+      context: "Liderazgo matriarcal basado en experiencia y memoria generacional",
       confidence: 89,
       phrases: [
         { time: "0:04", meaning: "Establecimiento de autoridad" },
@@ -200,7 +191,6 @@ const animalData = [
     }
   }
 ];
-
 
 
 
